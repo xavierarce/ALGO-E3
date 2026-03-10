@@ -1,7 +1,3 @@
-"""
-COPIE LE TEXTE CI-DESSOUS DANS TON FICHIER README.md
----------------------------------------------------
-
 # 📘 Projet Algorithmique Avancée - ESGI (2025-2026)
 
 Ce projet consiste à développer une bibliothèque (API) complète en Python couvrant les structures de données fondamentales : Arbres Binaires, Matrices, et Structures Linéaires.
@@ -45,3 +41,18 @@ Ce projet consiste à développer une bibliothèque (API) complète en Python co
 1. **Cloner le projet :**
    ```bash
    git clone [https://github.com/xavierarce/ALGO-E3.git](https://github.com/xavierarce/ALGO-E3.git)
+   ```
+2. **Créer l'environnement virtuel : :**
+   ```bash
+    # Sur Mac
+    python3 -m venv algo_env
+    source algo_env/bin/activate
+
+    # Sur Windows
+    python -m venv algo_env
+    .\algo_env\Scripts\activate
+  ```
+3. **Lancer les tests :**
+   ```bash
+    python main.py
+    ```
