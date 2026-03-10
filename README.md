@@ -40,9 +40,9 @@ Ce projet consiste à développer une bibliothèque (API) complète en Python co
 
 1. **Cloner le projet :**
    ```bash
-   git clone [https://github.com/xavierarce/ALGO-E3.git](https://github.com/xavierarce/ALGO-E3.git)
+    git clone https://github.com/xavierarce/ALGO-E3.git
    ```
-2. **Créer l'environnement virtuel : :**
+2. **Créer l'environnement virtuel :**
    ```bash
     # Sur Mac
     python3 -m venv algo_env
@@ -51,7 +51,7 @@ Ce projet consiste à développer une bibliothèque (API) complète en Python co
     # Sur Windows
     python -m venv algo_env
     .\algo_env\Scripts\activate
-  ```
+    ```
 3. **Lancer les tests :**
    ```bash
     python main.py
