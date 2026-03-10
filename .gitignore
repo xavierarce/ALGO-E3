@@ -1,0 +1,13 @@
+# Environnement virtuel
+algo_env/
+env/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS system files
+.DS_Store
