@@ -9,6 +9,14 @@ class Node:
 class BinaryTree:
     def __init__(self):
         self.root = None
+
+    @classmethod
+    def create_with_n_nodes(cls, values):
+        """Crée un arbre binaire de recherche à partir d'une séquence de valeurs."""
+        tree = cls()
+        for value in values:
+            tree.insert(value)
+        return tree
     
     def insert(self, value):
         """Insère une valeur (Arbre Binaire de Recherche)"""
@@ -63,3 +71,62 @@ class BinaryTree:
             if node.right: self.postorder_traversal(node.right, res)
             res.append(node.value)
         return res
+
+    def level_order_traversal(self):
+        """Parcours en largeur (BFS)."""
+        if self.root is None:
+            return []
+
+        result = []
+        queue = [self.root]
+
+        while queue:
+            current = queue.pop(0)
+            result.append(current.value)
+
+            if current.left is not None:
+                queue.append(current.left)
+            if current.right is not None:
+                queue.append(current.right)
+
+        return result
+
+    def insert_leaf(self, value):
+        """Insertion d'une feuille (alias de l'insertion standard BST)."""
+        self.insert(value)
+
+    def insert_branch(self, parent_value, branch_values, side="left"):
+        """Insère une branche sous un parent existant, côté gauche ou droit."""
+        parent = self._find(self.root, parent_value)
+        if parent is None:
+            raise ValueError("Parent introuvable dans l'arbre")
+
+        if side not in ("left", "right"):
+            raise ValueError("Le paramètre side doit valoir 'left' ou 'right'")
+
+        if not branch_values:
+            return
+
+        branch_root = Node(branch_values[0])
+        current = branch_root
+        for value in branch_values[1:]:
+            current.left = Node(value)
+            current = current.left
+
+        if side == "left":
+            if parent.left is not None:
+                raise ValueError("Le parent possède déjà un enfant gauche")
+            parent.left = branch_root
+        else:
+            if parent.right is not None:
+                raise ValueError("Le parent possède déjà un enfant droit")
+            parent.right = branch_root
+
+    def _find(self, node, value):
+        if node is None:
+            return None
+        if node.value == value:
+            return node
+        if value < node.value:
+            return self._find(node.left, value)
+        return self._find(node.right, value)
