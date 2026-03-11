@@ -1,5 +1,5 @@
 from tree_api import BinaryTree
-from linear_api import Stack, Queue, LinkedList
+from linear_api import Pile, File, ListeChainee
 from matrix_api import (
     create_matrix_5x4,
     create_matrix,
@@ -19,31 +19,41 @@ def test_trees():
     print("Largeur (BFS) :", tree.level_order_traversal())
 
 
+
+
 def test_linear_structures():
-    print("\n--- TEST API LINÉAIRE ---")
+    print("\n===========================================")
+    print("--- DÉBUT DU TEST API LINÉAIRE ---")
+    print("===========================================\n")
 
-    stack = Stack()
-    stack.push(1)
-    stack.push(2)
-    print("Pile vide ?", stack.is_empty())
-    print("Dépiler :", stack.pop())
-    print("Rechercher 1 dans pile :", stack.search(1))
+    print(">>> TEST DE LA PILE (LIFO) <<<")
+    pile = Pile()
+    pile.empiler(1)
+    pile.empiler(2)
+    pile.pile_vide()
+    pile.rechercher(1)
+    pile.depiler()
 
-    queue = Queue()
-    queue.enqueue(10)
-    queue.enqueue(20)
-    print("File vide ?", queue.is_empty())
-    print("Retirer :", queue.dequeue())
-    print("Rechercher 20 dans file :", queue.search(20))
+    print("\n>>> TEST DE LA FILE (FIFO) <<<")
+    file = File()
+    file.ajouter(10)
+    file.ajouter(20)
+    file.file_vide()
+    file.rechercher(20)
+    file.retirer()
 
-    linked = LinkedList()
-    linked.insert("A")
-    linked.insert("B")
-    linked.insert("C")
-    print("Liste chaînée :", linked.to_list())
-    print("Rechercher B :", linked.search("B"))
-    linked.delete("B")
-    print("Après suppression de B :", linked.to_list())
+    print("\n>>> TEST DE LA LISTE CHAÎNÉE <<<")
+    liste = ListeChainee()
+    liste.inserer("A")
+    liste.inserer("B")
+    liste.inserer("C")
+    print(f"\n[Aperçu] Liste actuelle : {liste.to_list()}\n")
+    
+    liste.rechercher("B")
+    liste.rechercher("Z")
+    liste.supprimer("B")
+    
+    print(f"\n[Aperçu] Liste après suppression : {liste.to_list()}\n")
 
 
 def test_matrices():
