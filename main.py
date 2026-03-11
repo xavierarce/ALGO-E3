@@ -20,31 +20,40 @@ def test_trees():
 
 
 
-def test_linear_structures():
-    print("\n--- TEST API LINÉAIRE ---")
 
+def test_linear_structures():
+    print("\n===========================================")
+    print("--- DÉBUT DU TEST API LINÉAIRE ---")
+    print("===========================================\n")
+
+    print(">>> TEST DE LA PILE (LIFO) <<<")
     pile = Pile()
     pile.empiler(1)
     pile.empiler(2)
-    print("Pile vide ?", pile.pile_vide())
-    print("Dépiler :", pile.depiler())
-    print("Rechercher 1 dans pile :", pile.rechercher(1))
+    pile.pile_vide()
+    pile.rechercher(1)
+    pile.depiler()
 
+    print("\n>>> TEST DE LA FILE (FIFO) <<<")
     file = File()
     file.ajouter(10)
     file.ajouter(20)
-    print("File vide ?", file.file_vide())
-    print("Retirer :", file.retirer())
-    print("Rechercher 20 dans file :", file.rechercher(20))
+    file.file_vide()
+    file.rechercher(20)
+    file.retirer()
 
+    print("\n>>> TEST DE LA LISTE CHAÎNÉE <<<")
     liste = ListeChainee()
     liste.inserer("A")
     liste.inserer("B")
     liste.inserer("C")
-    print("Liste chaînée :", liste.to_list())
-    print("Rechercher B :", liste.rechercher("B"))
+    print(f"\n[Aperçu] Liste actuelle : {liste.to_list()}\n")
+    
+    liste.rechercher("B")
+    liste.rechercher("Z")
     liste.supprimer("B")
-    print("Après suppression de B :", liste.to_list())
+    
+    print(f"\n[Aperçu] Liste après suppression : {liste.to_list()}\n")
 
 
 def test_matrices():
