@@ -30,6 +30,8 @@ class BinaryTree:
         """
         # Délégué à la version récursive qui retourne la nouvelle racine
         self.root = self._insert_recursive(self.root, value)
+        # afficher l'arbre à chaque insertion pour débogage/visualisation
+        self.pretty_print()
     
     def _insert_recursive(self, node, value):
         """Insère ``value`` à partir de ``node`` et rééquilibre l'arbre.
@@ -54,7 +56,7 @@ class BinaryTree:
         # 2. mise à jour de la hauteur et calcul du facteur d'équilibre
         balance = self._get_balance(node)
 
-        # cas déréquilibrés : 4 situations classiques AVL
+        # cas déséquilibrés : 4 situations classiques AVL
         # gauche-gauche
         if balance > 1 and value < node.left.value:
             return self._rotate_right(node)
@@ -203,3 +205,45 @@ class BinaryTree:
         if value < node.value:
             return self._find(node.left, value)
         return self._find(node.right, value)
+
+    # --- utilitaires d'affichage ---
+    def pretty_print(self, node=None, prefix="", is_left=True):
+        """Affiche l'arbre de manière lisible en ASCII.
+
+        Le dessin est orienté de sorte que la racine apparaisse à gauche et
+        que les sous-arbres droit et gauche soient respectivement au dessus
+        et au dessous.
+
+        Exemple :
+
+            ┌── 30
+        └── 20
+            └── 10
+
+        Args:
+            node: nœud courant (par défaut la racine)
+            prefix: préfixe accumulé lors de la récursion
+            is_left: bool indiquant s'il s'agit d'un fils gauche
+        """
+        if node is None:
+            node = self.root
+            # cas d'arbre vide
+            if node is None:
+                print("(empty tree)")
+                return
+
+        # afficher sous-arbre droit d'abord (pour être au-dessus)
+        if node.right:
+            self.pretty_print(node.right,
+                              prefix + ("│   " if is_left else "    "),
+                              False)
+
+        # afficher le nœud courant
+        connector = "└── " if is_left else "┌── "
+        print(prefix + connector + str(node.value))
+
+        # puis sous-arbre gauche
+        if node.left:
+            self.pretty_print(node.left,
+                              prefix + ("    " if is_left else "│   " ),
+                              True)

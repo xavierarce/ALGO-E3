@@ -11,7 +11,7 @@ from matrix_api import (
 
 def test_trees():
     print("\n--- TEST API ARBRES ---")
-    tree = BinaryTree.create_with_n_nodes([50, 30, 70, 20, 40])
+    tree = BinaryTree.create_with_n_nodes([50, 30, 70, 20, 40, 15, 25])
     
     print("Infixe (trié) :", tree.inorder_traversal())
     print("Préfixe :      ", tree.preorder_traversal())
