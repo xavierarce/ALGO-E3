@@ -20,13 +20,6 @@ class BinaryTree:
     
     def insert(self, value):
         """Insère une valeur en maintenant l'arbre h-équilibré (AVL).
-
-        L'opération se fait en deux étapes :
-        1. insertion classique dans le sous-arbre correspondant
-        2. rééquilibrage par rotations si nécessaire
-
-        La méthode modifie ``self.root`` en affectant le nœud retourné
-        par ``_insert_recursive`` qui renvoie le nouveau sous-arbre racine.
         """
         # Délégué à la version récursive qui retourne la nouvelle racine
         self.root = self._insert_recursive(self.root, value)
@@ -35,13 +28,6 @@ class BinaryTree:
     
     def _insert_recursive(self, node, value):
         """Insère ``value`` à partir de ``node`` et rééquilibre l'arbre.
-
-        Args:
-            node: racine du sous-arbre courant (peut être ``None``)
-            value: valeur à insérer
-
-        Returns:
-            La nouvelle racine du sous-arbre après insertion/rotation.
         """
 
         # 1. insertion normale BST
@@ -209,21 +195,6 @@ class BinaryTree:
     # --- utilitaires d'affichage ---
     def pretty_print(self, node=None, prefix="", is_left=True):
         """Affiche l'arbre de manière lisible en ASCII.
-
-        Le dessin est orienté de sorte que la racine apparaisse à gauche et
-        que les sous-arbres droit et gauche soient respectivement au dessus
-        et au dessous.
-
-        Exemple :
-
-            ┌── 30
-        └── 20
-            └── 10
-
-        Args:
-            node: nœud courant (par défaut la racine)
-            prefix: préfixe accumulé lors de la récursion
-            is_left: bool indiquant s'il s'agit d'un fils gauche
         """
         if node is None:
             node = self.root
@@ -238,7 +209,7 @@ class BinaryTree:
                               prefix + ("│   " if is_left else "    "),
                               False)
 
-        # afficher le nœud courant
+        # afficher le noeud courant
         connector = "└── " if is_left else "┌── "
         print(prefix + connector + str(node.value))
 
