@@ -19,31 +19,32 @@ def test_trees():
     print("Largeur (BFS) :", tree.level_order_traversal())
 
 
+
 def test_linear_structures():
     print("\n--- TEST API LINÉAIRE ---")
 
-    stack = Stack()
-    stack.push(1)
-    stack.push(2)
-    print("Pile vide ?", stack.is_empty())
-    print("Dépiler :", stack.pop())
-    print("Rechercher 1 dans pile :", stack.search(1))
+    pile = Pile()
+    pile.empiler(1)
+    pile.empiler(2)
+    print("Pile vide ?", pile.pile_vide())
+    print("Dépiler :", pile.depiler())
+    print("Rechercher 1 dans pile :", pile.rechercher(1))
 
-    queue = Queue()
-    queue.enqueue(10)
-    queue.enqueue(20)
-    print("File vide ?", queue.is_empty())
-    print("Retirer :", queue.dequeue())
-    print("Rechercher 20 dans file :", queue.search(20))
+    file = File()
+    file.ajouter(10)
+    file.ajouter(20)
+    print("File vide ?", file.file_vide())
+    print("Retirer :", file.retirer())
+    print("Rechercher 20 dans file :", file.rechercher(20))
 
-    linked = LinkedList()
-    linked.insert("A")
-    linked.insert("B")
-    linked.insert("C")
-    print("Liste chaînée :", linked.to_list())
-    print("Rechercher B :", linked.search("B"))
-    linked.delete("B")
-    print("Après suppression de B :", linked.to_list())
+    liste = ListeChainee()
+    liste.inserer("A")
+    liste.inserer("B")
+    liste.inserer("C")
+    print("Liste chaînée :", liste.to_list())
+    print("Rechercher B :", liste.rechercher("B"))
+    liste.supprimer("B")
+    print("Après suppression de B :", liste.to_list())
 
 
 def test_matrices():
