@@ -19,23 +19,96 @@ class BinaryTree:
         return tree
     
     def insert(self, value):
-        """Insère une valeur (Arbre Binaire de Recherche)"""
-        if self.root is None:
-            self.root = Node(value)
-        else:
-            self._insert_recursive(self.root, value)
+        """Insère une valeur en maintenant l'arbre h-équilibré (AVL).
+
+        L'opération se fait en deux étapes :
+        1. insertion classique dans le sous-arbre correspondant
+        2. rééquilibrage par rotations si nécessaire
+
+        La méthode modifie ``self.root`` en affectant le nœud retourné
+        par ``_insert_recursive`` qui renvoie le nouveau sous-arbre racine.
+        """
+        # Délégué à la version récursive qui retourne la nouvelle racine
+        self.root = self._insert_recursive(self.root, value)
     
     def _insert_recursive(self, node, value):
+        """Insère ``value`` à partir de ``node`` et rééquilibre l'arbre.
+
+        Args:
+            node: racine du sous-arbre courant (peut être ``None``)
+            value: valeur à insérer
+
+        Returns:
+            La nouvelle racine du sous-arbre après insertion/rotation.
+        """
+
+        # 1. insertion normale BST
+        if node is None:
+            return Node(value)
+
         if value < node.value:
-            if node.left is None:
-                node.left = Node(value)
-            else:
-                self._insert_recursive(node.left, value)
+            node.left = self._insert_recursive(node.left, value)
         else:
-            if node.right is None:
-                node.right = Node(value)
-            else:
-                self._insert_recursive(node.right, value)
+            node.right = self._insert_recursive(node.right, value)
+
+        # 2. mise à jour de la hauteur et calcul du facteur d'équilibre
+        balance = self._get_balance(node)
+
+        # cas déréquilibrés : 4 situations classiques AVL
+        # gauche-gauche
+        if balance > 1 and value < node.left.value:
+            return self._rotate_right(node)
+
+        # droite-droite
+        if balance < -1 and value > node.right.value:
+            return self._rotate_left(node)
+
+        # gauche-droite
+        if balance > 1 and value > node.left.value:
+            node.left = self._rotate_left(node.left)
+            return self._rotate_right(node)
+
+        # droite-gauche
+        if balance < -1 and value < node.right.value:
+            node.right = self._rotate_right(node.right)
+            return self._rotate_left(node)
+
+        return node
+
+    # --- méthodes utilitaires pour AVL ---
+    def _get_height(self, node):
+        """Retourne la hauteur d'un nœud (0 si None)."""
+        if node is None:
+            return 0
+        return 1 + max(self._get_height(node.left), self._get_height(node.right))
+
+    def _get_balance(self, node):
+        """Facteur d'équilibre = hauteur gauche - hauteur droite."""
+        if node is None:
+            return 0
+        return self._get_height(node.left) - self._get_height(node.right)
+
+    def _rotate_left(self, z):
+        """Rotation gauche autour du nœud z."""
+        y = z.right
+        T2 = y.left
+
+        # effectuer rotation
+        y.left = z
+        z.right = T2
+
+        return y
+
+    def _rotate_right(self, z):
+        """Rotation droite autour du nœud z."""
+        y = z.left
+        T3 = y.right
+
+        # effectuer rotation
+        y.right = z
+        z.left = T3
+
+        return y
 
     # --- LES PARCOURS (Demandés par le syllabus) ---
 
